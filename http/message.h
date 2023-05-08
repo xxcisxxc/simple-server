@@ -12,7 +12,7 @@ struct start_line {};
 struct header_field {
     char *field_name;
     char *field_value;
-    struct list list;
+    struct list list_head;
 };
 
 struct message_body {
