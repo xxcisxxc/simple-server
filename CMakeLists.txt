@@ -8,8 +8,8 @@ include_directories(${CMAKE_SOURCE_DIR})
 add_executable(
         simple_server
         main.c
-        #http/request.c
-        #http/request.h
+        http/request.c
+        http/request.h
         http/message.c
         http/message.h
         utils/list.c

@@ -8,7 +8,6 @@
 #include "message.h"
 #include "utils/utils.h"
 
-
 bool header_field_parser(char **, char **, const char *restrict);
 
 /**
@@ -58,7 +57,8 @@ bool http_message_parser(struct http_message *http_message,
             goto ERROR;
         }
         /* Add to the linked list */
-        add_list_item_end(&http_message->header_field_list.list_head, &new_header->list_head);
+        add_list_item_end(&http_message->header_field_list.list_head,
+                          &new_header->list_head);
     }
 
     /* Get Message Body */

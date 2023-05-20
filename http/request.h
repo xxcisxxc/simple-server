@@ -1,25 +1,48 @@
-//
-// Copyright xxcisxxc.
-//
+/*
+ * Copyright (c) 2023. Created by xxcisxxc
+ */
 
 #ifndef SIMPLE_SERVER_REQUEST_H
 #define SIMPLE_SERVER_REQUEST_H
 
+
+#include <string.h>
+
+#include "message.h"
+
+enum Method { GET, POST, PUT, DELETE, METHOD_NULL };
+enum Version { HTTP_1_0, HTTP_1_1, HTTP_NULL };
+
 struct request_line {
-    unsigned int len_url;
-    char *url;
-
-    unsigned int len_method;
-    char *method; // HTTP Method
-
-    unsigned int len_rpath;
-    char *rpath; // Relative Path
-
-    unsigned int len_version;
-    char *version; // Version of HTTP
+    enum Method method;
+    char *uri;
+    enum Version version;
 };
-typedef struct request_line request_line_t;
 
-struct header {};
+static inline enum Method parse_method(char *raw_method) {
+    if (!strcmp(raw_method, "GET")) {
+        return GET;
+    } else if (!strcmp(raw_method, "POST")) {
+        return POST;
+    } else if (!strcmp(raw_method, "PUT")) {
+        return PUT;
+    } else if (!strcmp(raw_method, "DELETE")) {
+        return DELETE;
+    } else {
+        return METHOD_NULL;
+    }
+}
+
+static inline enum Version parse_version(char *raw_version) {
+    if (!strcmp(raw_version, "HTTP/1.1")) {
+        return HTTP_1_1;
+    } else if (!strcmp(raw_version, "HTTP/1.0")) {
+        return HTTP_1_0;
+    } else {
+        return HTTP_NULL;
+    }
+}
+
+bool request_line_parser(struct request_line *, struct http_message *);
 
 #endif // SIMPLE_SERVER_REQUEST_H
