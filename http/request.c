@@ -8,14 +8,16 @@
 #include "request.h"
 #include "utils/utils.h"
 
-bool request_line_parser(struct request_line *request_line, struct http_message *http_message) {
+bool request_line_parser(struct request_line *request_line,
+                         struct http_message *http_message) {
     /*
      * Method SP Request-URI SP HTTP-Version CRLF
      * Example:
      *   GET /path/to/file/index.html HTTP/1.0
      */
 
-    char *raw_request_line = malloc_and_strcpy((char *)http_message->start_line);
+    char *raw_request_line =
+        malloc_and_strcpy((char *)http_message->start_line);
     char *current_state, *last_state;
 
     current_state = strtok_r(raw_request_line, " ", &last_state);

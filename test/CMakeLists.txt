@@ -18,3 +18,10 @@ target_include_directories(request_test PRIVATE ${CMAKE_SOURCE_DIR}/http
                                                 ${CMAKE_SOURCE_DIR})
 
 add_test(NAME request_test COMMAND $<TARGET_FILE:request_test>)
+
+add_executable(response_test http/response_test.c Unity/src/unity.c
+                             ${CMAKE_SOURCE_DIR}/http/response.c)
+target_include_directories(response_test PRIVATE ${CMAKE_SOURCE_DIR}/http
+                                                 ${CMAKE_SOURCE_DIR})
+
+add_test(NAME response_test COMMAND $<TARGET_FILE:response_test>)

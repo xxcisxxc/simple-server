@@ -6,6 +6,7 @@
 #define SIMPLE_SERVER_MESSAGE_H
 
 #include "utils/list.h"
+#include <string.h>
 #include <stdbool.h>
 
 struct start_line {};
@@ -31,5 +32,28 @@ static inline void init_http_message(struct http_message *http_message) {
 }
 
 bool http_message_parser(struct http_message *, char *);
+
+enum Version { HTTP_1_0, HTTP_1_1, HTTP_NULL };
+
+static inline enum Version parse_version(char *raw_version) {
+    if (!strcmp(raw_version, "HTTP/1.1")) {
+        return HTTP_1_1;
+    } else if (!strcmp(raw_version, "HTTP/1.0")) {
+        return HTTP_1_0;
+    } else {
+        return HTTP_NULL;
+    }
+}
+
+static inline char *construct_version(enum Version version) {
+    switch (version) {
+    case HTTP_1_1:
+        return "HTTP/1.1";
+    case HTTP_1_0:
+        return "HTTP/1.0";
+    default:
+        return NULL;
+    }
+}
 
 #endif // SIMPLE_SERVER_MESSAGE_H

@@ -5,13 +5,11 @@
 #ifndef SIMPLE_SERVER_REQUEST_H
 #define SIMPLE_SERVER_REQUEST_H
 
-
 #include <string.h>
 
 #include "message.h"
 
 enum Method { GET, POST, PUT, DELETE, METHOD_NULL };
-enum Version { HTTP_1_0, HTTP_1_1, HTTP_NULL };
 
 struct request_line {
     enum Method method;
@@ -30,16 +28,6 @@ static inline enum Method parse_method(char *raw_method) {
         return DELETE;
     } else {
         return METHOD_NULL;
-    }
-}
-
-static inline enum Version parse_version(char *raw_version) {
-    if (!strcmp(raw_version, "HTTP/1.1")) {
-        return HTTP_1_1;
-    } else if (!strcmp(raw_version, "HTTP/1.0")) {
-        return HTTP_1_0;
-    } else {
-        return HTTP_NULL;
     }
 }
 

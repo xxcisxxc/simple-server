@@ -14,7 +14,7 @@ add_executable(
         http/message.h
         utils/list.c
         utils/list.h
-        utils/utils.h)
+        utils/utils.h http/response.c http/response.h)
 
 enable_testing()
 add_subdirectory(test)
